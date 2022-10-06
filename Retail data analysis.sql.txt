@@ -1,0 +1,34 @@
+--CREATE DATABASE
+
+CREATE DATABASE RETAILS;
+
+--MAKE THE DATABASE ACTIVE
+USE RETAILS;
+
+create table customer
+(CUSTOMER_ID int primary key,
+DOB date,
+GENDER varchar(1),
+CITY_CODE int);
+
+select * from dbo.customer;
+
+-- Copying to [dbo].[Customer] (Success)
+--5647 rows transferred 
+
+exec sp_columns customer;
+
+
+
+select *, FORMAT(CONVERT(datetime, DOB, 103), 'dd-MM-yyyy') as dob_as_date from Customer;
+
+
+select cast(  max(FORMAT(CONVERT(datetime, DOB, 103), 'dd')) as int)-cast(min(FORMAT(CONVERT(datetime, DOB, 103), 'dd')) as int)  as dob_as_date from customer;
+
+select *,FORMAT(CONVERT(datetime, DOB, 103), 'dd') as Day ,FORMAT(CONVERT(datetime, DOB, 103), 'MM') as Month ,
+FORMAT(CONVERT(datetime, DOB, 103), 'yyyy') as Year,
+(select cast(  max(FORMAT(CONVERT(datetime, DOB, 103), 'dd')) as int)-cast(min(FORMAT(CONVERT(datetime, DOB, 103), 'dd')) as int)  as dob_as_date from customer)
+as time_range_tranc
+from customer;
+
+ 
